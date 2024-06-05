@@ -1,6 +1,6 @@
 import {useNavigate} from 'react-router-dom'
 import useAxios from './useAxios'
-import { fetchFail, fetchStart, loginSuccess, registerSuccess } from '../feature/authSlice'
+import { fetchFail, fetchStart, loginSuccess, logoutSuccess, registerSuccess } from '../feature/authSlice'
 import {useDispatch} from "react-redux"
 import {toastErrorNotify, toastSuccessNotify} from "../helper/ToastNotify"
 import axios from 'axios'
@@ -8,9 +8,9 @@ import axios from 'axios'
 const useAuthRequest = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {axiosPublic} = useAxios()
+    const {axiosPublic, axiosToken} = useAxios()
 
-                  //*LOGIN
+                  //***** LOGIN *******
     const login = async(userData) => {
         dispatch(fetchStart())
         try{
@@ -26,7 +26,7 @@ const useAuthRequest = () => {
         }
     }
 
-                      //*REGISTER
+        //**************  REGISTER  *************
     const register = async(userData) => {
         dispatch(fetchStart())
         try{
@@ -41,7 +41,23 @@ const useAuthRequest = () => {
             console.log(error)
         }
     }
-  return {login, register}
+                      //********** LOGOUT ****************
+    const logout = async() => {
+        dispatch(fetchStart())
+        try{
+            await axiosToken.get("/auth/logout/")
+            // const {data} = await axios.post("https://10116.fullstack.clarusway.com/users/", userData)
+            dispatch(logoutSuccess())
+            navigate("/login")
+            toastSuccessNotify("logout Success")
+        }catch(error){
+            dispatch(fetchFail())
+            toastErrorNotify("logout invalid")
+            console.log(error)
+        }
+    }
+
+  return {login, register, logout}
     }
 
 export default useAuthRequest
