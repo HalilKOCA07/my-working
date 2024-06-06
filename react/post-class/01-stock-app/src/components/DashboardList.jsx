@@ -84,24 +84,20 @@ export default DashboardList;
 
 //todo **********  NAVLIST  ****************
 export const NavList = () => {
+    const navigate = useNavigate()
     const { logout } = useAuthRequest();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const settings = [
-    { title: "Profile", path: "/stock/profile" },
-    { title: "Logout" , action:logout },
-  ];
+
+  // const settings = [
+  //   { title: "Profile", path: "/stock/profile" },
+  //   { title: "Logout" , action:"logout" },
+  // ];
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const handleMenuClick = (settings) => {
-    if(settings.action){
-        settings.actions()
-    }
-    handleCloseUserMenu()
-  }
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
@@ -125,11 +121,14 @@ export const NavList = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {settings.map((setting) => (
-          <MenuItem key={setting.title} onClick={() => handleMenuClick(setting)}>
-            <Typography textAlign="center">{setting}</Typography>
+       
+          <MenuItem key="profile" onClick={() => navigate("/stock/profile")}>
+            <Typography textAlign="center">Profile</Typography>
           </MenuItem>
-        ))}
+          <MenuItem key="logout" onClick={logout}>
+            <Typography textAlign="center">Logout</Typography>
+          </MenuItem>
+      
       </Menu>
     </Box>
   );
