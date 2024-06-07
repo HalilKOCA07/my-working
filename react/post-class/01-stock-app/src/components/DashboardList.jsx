@@ -25,7 +25,6 @@ import { useNavigate } from "react-router-dom";
 import useAuthRequest from "../services/useAuthRequest";
 
 const DashboardList = () => {
-
   const navigate = useNavigate();
   const icons = [
     {
@@ -65,11 +64,18 @@ const DashboardList = () => {
       <Divider />
       <List>
         {icons.map((item, index) => (
-          <ListItem key={item.title} disablePadding>
-            <ListItemButton
-              sx={{ color: "white" }}
-              onClick={() => navigate(item.path)}
-            >
+          <ListItem
+            key={item.title}
+            disablePadding
+            sx={{
+              color: "white",
+              "& .MuiSvgIcon-root": { color: "white" },
+              "&:hover": { color: "red" },
+              "&:hover .MuiSvgIcon-root": { color: "red" },
+            }}
+            onClick={() => navigate(item.path)}
+          >
+            <ListItemButton>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.title} />
             </ListItemButton>
@@ -84,8 +90,8 @@ export default DashboardList;
 
 //todo **********  NAVLIST  ****************
 export const NavList = () => {
-    const navigate = useNavigate()
-    const { logout } = useAuthRequest();
+  const navigate = useNavigate();
+  const { logout } = useAuthRequest();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   // const settings = [
@@ -121,14 +127,12 @@ export const NavList = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-       
-          <MenuItem key="profile" onClick={() => navigate("/stock/profile")}>
-            <Typography textAlign="center">Profile</Typography>
-          </MenuItem>
-          <MenuItem key="logout" onClick={logout}>
-            <Typography textAlign="center">Logout</Typography>
-          </MenuItem>
-      
+        <MenuItem key="profile" onClick={() => navigate("/stock/profile")}>
+          <Typography textAlign="center">Profile</Typography>
+        </MenuItem>
+        <MenuItem key="logout" onClick={logout}>
+          <Typography textAlign="center">Logout</Typography>
+        </MenuItem>
       </Menu>
     </Box>
   );
