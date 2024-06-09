@@ -5,7 +5,6 @@ import { Navigate, Outlet } from 'react-router-dom'
 const PrivaterRouter = () => {
 
   const {user} = useSelector((state) => state.auth)
-  console.log(user)
 
   return user ? <Outlet /> : <Navigate to="/" />
 }

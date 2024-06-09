@@ -18,12 +18,9 @@ const useStockRequest = () => {
             const {data} = await axiosToken(`/${path}`)
             const stockData = data.data
             dispatch(getStockSuccess({path, stockData}))
-            toastSuccessNotify(`${path} could be received`)
         }catch(error){
             toastErrorNotify(`${path} couldn't be received`)
             dispatch(fetchFail())
-            console.log("getStock",error)
-            console.log(token, axiosToken)
         } 
     }
 

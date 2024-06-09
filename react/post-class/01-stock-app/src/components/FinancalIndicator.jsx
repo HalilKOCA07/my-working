@@ -21,7 +21,7 @@ const bull = (
 );
 
 const FinancalIndicator = () => {
-  const {getStock} = useStockRequest()
+
   const {sales, purchases} = useSelector((state) => state.stock)
   const salesAmount = sales.reduce((acc, sale) => acc + sale.amount, 0) 
   const purchasesAmount = purchases.reduce((acc, purch) => acc + purch.amount, 0) 
@@ -54,11 +54,6 @@ const FinancalIndicator = () => {
       iconColor:deepPurple[800]
     },
   ];
-
-    useEffect(() => {
-      getStock("sales")
-      getStock("purchases")
-    },[])
 
   return (
     <Box sx={{display:"flex", justifyContent:"center", gap:5, mt:1}}>

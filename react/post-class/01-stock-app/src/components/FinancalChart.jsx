@@ -1,37 +1,46 @@
+import { Box } from '@mui/material';
 import { AreaChart } from '@tremor/react';
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useStockRequest from '../services/useStockRequest';
 
 const dataFormatter = (number) =>
-    `$${Intl.NumberFormat('us').format(number).toString()}`;
-  
+  `$${Intl.NumberFormat('us').format(number).toString()}`;
+
 const FinancalChart = () => {
-    const {sales, purchases} = useSelector((state) => state.stock)
-    const {getStock} = useStockRequest()
+const {sales, purchases} = useSelector((state) => state.stock)
+
 const salesChart = sales.map((item) => ({
-    date:new Date(item.created).toLocaleDateString("tr-TR"),
-    amount: item.amount 
+  date:new Date(item.createdAt).toLocaleDateString("tr-TR"),
+  amount:item.amount
+}))
+const purchasesChart = purchases.map((item) => ({
+  date:new Date(item.createdAt).toLocaleDateString("tr-TR"),
+  amount:item.amount
 }))
 
-useEffect(() => {
-    getStock("sales")
-    getStock("purchases")
-})
   return (
-    <div>
-          <AreaChart
-      className="h-80"
+    <Box sx={{display:"flex", justifyContent:"center", gap:5, mt:4, px:4}}>
+        <AreaChart
+      className="h-80 "
       data={salesChart}
       index="date"
-      categories={['Inverters']}
+      categories={['amount']}
+      colors={['indigo', 'rose']}
+      valueFormatter={dataFormatter}
+      yAxisWidth={60}
+      onValueChange={(v) => console.log(v)}
+    />
+    <AreaChart
+      className="h-80 "
+      data={purchasesChart}
+      index="date"
+      categories={['amount']}
       colors={['rose']}
       valueFormatter={dataFormatter}
       yAxisWidth={60}
       onValueChange={(v) => console.log(v)}
-/>
-    </div>
-  )
+    />
+    </Box>
+  );
 }
 
 export default FinancalChart
