@@ -20,9 +20,10 @@ const bull = (
   </Box>
 );
 
-const FinancalIndicator = () => {
+const FinancalIndicator = ({sales, purchases}) => {
 
-  const {sales, purchases} = useSelector((state) => state.stock)
+
+  
   const salesAmount = sales.reduce((acc, sale) => acc + sale.amount, 0) 
   const purchasesAmount = purchases.reduce((acc, purch) => acc + purch.amount, 0) 
   const profitAmount = salesAmount - purchasesAmount
