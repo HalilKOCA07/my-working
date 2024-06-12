@@ -1,87 +1,88 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import EditIcon from '@mui/icons-material/Edit';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import EditIcon from "@mui/icons-material/Edit";
 
-export default function PurchasesTable({purchases, handleOpen}) {
-  const getRowId = (row) => row._id
+export default function PurchasesTable({ purchases, handleOpen, setInfo }) {
+  const getRowId = (row) => row._id;
   const columns = [
-    { field: 'createdAt', headerName: 'Date:', minwidth: 150, renderCell:({row})=>{return new Date(row.createdAt).toLocaleDateString("tr-TR")}},
     {
-      field: 'firmId',
-      headerName: 'Firm',
-      width: 150,
-      editable: true,
-      renderCell: ({row}) => row?.firmId.name,
+      field: "createdAt",
+      headerName: "Date:",
+      minwidth: 150,
+      renderCell: ({ row }) => {
+        return new Date(row.createdAt).toLocaleDateString("tr-TR");
+      },
     },
     {
-      field: 'brandId',
-      headerName: 'Brand',
+      field: "firmId",
+      headerName: "Firm",
       width: 150,
       editable: true,
-      renderCell: ({row}) => row?.brandId?.name
+      renderCell: ({ row }) => row?.firmId.name,
     },
     {
-      field: 'productId',
-      headerName: 'Product',
+      field: "brandId",
+      headerName: "Brand",
+      width: 150,
+      editable: true,
+      renderCell: ({ row }) => row?.brandId?.name,
+    },
+    {
+      field: "productId",
+      headerName: "Product",
       width: 110,
       editable: true,
-      renderCell: ({row}) => row?.productId?.name
+      renderCell: ({ row }) => row?.productId?.name,
     },
     {
-      field: 'quantity',
-      headerName: 'Quentity',
-      width: 160,
-      type: "number",
-      editable: false,
-  
-    },
-    {
-      field: 'price',
-      headerName: 'Price',
+      field: "quantity",
+      headerName: "Quentity",
       width: 160,
       type: "number",
       editable: false,
     },
     {
-      field: 'amount',
-      headerName: 'Amount',
+      field: "price",
+      headerName: "Price",
       width: 160,
       type: "number",
       editable: false,
     },
     {
-      field: 'action',
-      headerName: 'Actions',
+      field: "amount",
+      headerName: "Amount",
       width: 160,
+      type: "number",
       editable: false,
     },
     {
-      field:'actions',
-      headerName: 'Acitons',
-      minWidht:40,
-      align:"center",
-      renderCell: ({row:{brandId, productId, quantity, price, firmId, _id},}) => {
+      field: "actions",
+      headerName: "Acitons",
+      minWidht: 40,
+      align: "center",
+      renderCell: ({
+        row: { brandId, productId, quantity, price, firmId, _id },
+      }) => {
         return [
-          <GridActionsCellItem 
-          key={"edit"}
-          icon={<EditIcon />}
-          label='Edit'
-          onClick={() => 
-            handleOpen()
-          }
-          />
-        ]
-      }
-    }
-
+          <GridActionsCellItem
+            key={"edit"}
+            icon={<EditIcon />}
+            label="Edit"
+            onClick={() => {
+              handleOpen();
+              setInfo({ brandId, productId, quantity, price, firmId, _id });
+            }}
+          />,
+        ];
+      },
+    },
   ];
 
-  const rows = purchases.map((item) => item)
-
+  // const rows = purchases.map((item) => item)
 
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
         rows={purchases}
         columns={columns}

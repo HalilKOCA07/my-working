@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useNavigate } from "react-router-dom";
+import { TextField } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -25,16 +26,29 @@ const style = {
   pb: 3,
 };
 
-export default function PurchasesModal({ open, handleClose, setInfo, info }) {
-  const { getStock } = useStockRequest();
+export default function PurchasesModal({ purchases, open, handleClose, setInfo, info }) {
+  const { getStock, postStock, putStock } = useStockRequest();
   const navigate = useNavigate();
   const { firms, brands, products } = useSelector((state) => state.stock);
-  console.log(firms);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInfo({ ...info, [name]: value });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if(info._id){
+        putStock("purchases", info)
+    }else{
+       postStock("purchases", info)
+    }
+   
+    handleClose()
+  };
+
+  console.log(info);
 
   useEffect(() => {
     getStock("firms");
@@ -46,30 +60,142 @@ export default function PurchasesModal({ open, handleClose, setInfo, info }) {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl>
-            <InputLabel id="demo-simple-select-label">Firm</InputLabel>
+        <Box sx={style}>
+          {/* *************** FIRMS ***************** */}
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Firms</InputLabel>
             <Select
-              labelId="firm-simple-select-label"
-              id="firm-simple-select"
+              labelId="firm-select-label"
+              value={info?.firmId?._id || info?.firmId}
               name="firmId"
-              value={info?.firmId._id || info?.firmId}
-              label="Firm"
+              label="Firms"
               onChange={handleChange}
+              required
             >
-              <MenuItem onClick={() => navigate("/stock/firms")}>
+              <MenuItem
+                sx={{
+                  backgroundColor: "#dbdbdb",
+                  display: "flex",
+                  justifyContent: "center",
+                  fontWeight: "bold",
+                }}
+                onClick={() => navigate("/stock/firms")}
+              >
                 Add New Firm
               </MenuItem>
+              <hr />
               {firms.map((item) => (
                 <MenuItem key={item._id} value={item._id}>
                   {item.name}
                 </MenuItem>
               ))}
-              -
             </Select>
+          </FormControl>
+
+          {/* *************** BRANDS ***************** */}
+          <FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
+            <InputLabel id="demo-simple-select-label">Brand</InputLabel>
+            <Select
+              labelId="firm-select-label"
+              value={info?.brandId?._id || info?.brandId}
+              name="brandId"
+              label="Brand"
+              onChange={handleChange}
+              required
+            >
+              <MenuItem
+                sx={{
+                  backgroundColor: "#dbdbdb",
+                  display: "flex",
+                  justifyContent: "center",
+                  fontWeight: "bold",
+                }}
+                onClick={() => navigate("/stock/brands")}
+              >
+                Add New Brands
+              </MenuItem>
+              <hr />
+              {brands.map((item) => (
+                <MenuItem key={item._id} value={item._id}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          {/* *************** PRODUCTS ***************** */}
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Product</InputLabel>
+            <Select
+              labelId="firm-select-label"
+              value={info?.productId?._id || info?.productId}
+              name="productId"
+              label="Product"
+              onChange={handleChange}
+              required
+            >
+              <MenuItem
+                sx={{
+                  backgroundColor: "#dbdbdb",
+                  display: "flex",
+                  justifyContent: "center",
+                  fontWeight: "bold",
+                }}
+                onClick={() => navigate("/stock/products")}
+              >
+                Add New Product
+              </MenuItem>
+              <hr />
+              {products.map((item) => (
+                <MenuItem key={item._id} value={item._id}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <TextField
+              label="Quantity"
+              id="quantity"
+              name="quantity"
+              inputProps={{ min: 0 }}
+              sx={{ mt: 2 }}
+              variant="outlined"
+              type="number"
+              value={info?.quantity}
+              onChange={handleChange}
+              required
+            />
+          </FormControl>
+          <FormControl fullWidth>
+            <TextField
+              label="Price ( € )"
+              id="price"
+              name="price"
+              inputProps={{ min: 0 }}
+              sx={{ mt: 2 }}
+              variant="outlined"
+              type="number"
+              value={info?.price}
+              onChange={handleChange}
+              required
+            />
+          </FormControl>
+          <FormControl fullWidth>
+            <Button
+              sx={{
+                backgroundColor: "black",
+                color: "white",
+                m: 3,
+                ":hover": { backgroundColor: "#020265" },
+              }}
+              onClick={handleSubmit}
+            >
+              New Add Purchase
+            </Button>
           </FormControl>
         </Box>
       </Modal>

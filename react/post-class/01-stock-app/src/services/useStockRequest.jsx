@@ -15,27 +15,37 @@ const useStockRequest = () => {
             const {data} = await axiosToken(`/${path}`)
             const stockData = data.data
             dispatch(getStockSuccess({path, stockData}))
-            console.log(stockData)
         }catch(error){
             toastErrorNotify(`${path} couldn't be received`)
             dispatch(fetchFail())
         } 
     }
-    // const getStock = async(path = "firms") => {
-    //     dispatch(fetchStart())
-    //     try{
-    //         const {data} = await axios.get(`/${path}`, {headers: {Authorization: `Token 83e17388699e570bc670bcfb8c685f5f95896b979fd2724efeb8204fb4175ad3`}})
-    //         const stockData = data.data
-    //         dispatch(getStockSuccess({path, stockData}))
-    //         console.log(stockData)
-    //     }catch(error){
-    //         toastErrorNotify(`${path} couldn't be received`)
-    //         dispatch(fetchFail())
-    //         console.error('API Error:', error.response ? error.response.data : error.message);
-    //         toast.error(`Error fetching ${path}: ${error.message}`);
-    //         dispatch(fetchFail());
-    //     } 
-    // }
+    
+    const postStock = async(path = "firms", info) => {
+        dispatch(fetchStart())
+        try{
+            const {data} = await axiosToken.post(`/${path}`, info)
+            const stockData = data.data
+            toastSuccessNotify(`New ${path} is successfully added`)
+            getStock(path)
+        }catch(error){
+            toastErrorNotify(`${path} couldn't be received`)
+            dispatch(fetchFail())
+        } 
+    }
+
+    const putStock = async(path = "firms", info) => {
+        dispatch(fetchStart())
+        try{
+            const {data} = await axiosToken.put(`/${path}/${info._id}`, info)
+            const stockData = data.data
+            toastSuccessNotify(`New ${path} is successfully ubdated`)
+           getStock(path)
+        }catch(error){
+            toastErrorNotify(`${path} couldn't be received`)
+            dispatch(fetchFail())
+        } 
+    }
 
     const deleteStock = async(path = "firms", id) => {
         dispatch(fetchStart())
@@ -49,7 +59,7 @@ const useStockRequest = () => {
         } 
     }
 
-  return {getStock, deleteStock}
+  return {getStock, deleteStock, postStock, putStock}
 }
 
 export default useStockRequest

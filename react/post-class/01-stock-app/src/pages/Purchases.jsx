@@ -47,12 +47,13 @@ const Purchases = () => {
       >
         New Purchase
       </Button>
-      <PurchasesTable purchases={purchases} handleOpen={handleOpen} />
+      <PurchasesTable purchases={purchases} handleOpen={handleOpen} setInfo={setInfo} />
       <PurchasesModal
         info={info}
         setInfo={setInfo}
         open={open}
         handleClose={handleClose}
+        purchases={purchases}
       />
     </div>
   );
