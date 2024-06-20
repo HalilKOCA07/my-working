@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PurchasesTable from "../components/PurchasesTable";
 import { Button, Typography } from "@mui/material";
 import useStockRequest from "../services/useStockRequest";
@@ -17,7 +17,7 @@ const Purchases = () => {
     price: "",
   };
   const [info, setInfo] = useState(initialState);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   console.log(open);
   const handleOpen = () => {

@@ -4,66 +4,61 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from '@mui/icons-material/Delete';
 import useStockRequest from "../services/useStockRequest";
+import { red } from "@mui/material/colors";
+import { btnStyle } from "../styles/globalStyles";
 
-export default function PurchasesTable({ purchases, handleOpen, setInfo }) {
+export default function SalesTable({ sales, handleOpen, setInfo }) {
   const {deleteStock} = useStockRequest()
   const getRowId = (row) => row._id;
   const columns = [
     {
       field: "createdAt",
       headerName: "Date:",
-      minwidth: 150,
+
       renderCell: ({ row }) => {
         return new Date(row.createdAt).toLocaleDateString("tr-TR");
       },
     },
     {
-      field: "firmId",
-      headerName: "Firm",
-      width: 150,
-      editable: true,
-      renderCell: ({ row }) => row?.firmId.name,
-    },
-    {
       field: "brandId",
       headerName: "Brand",
-      width: 150,
+
       editable: true,
       renderCell: ({ row }) => row?.brandId?.name,
+
     },
     {
       field: "productId",
       headerName: "Product",
-      width: 110,
+
       editable: true,
       renderCell: ({ row }) => row?.productId?.name,
     },
     {
       field: "quantity",
       headerName: "Quentity",
-      width: 160,
+
       type: "number",
       editable: false,
     },
     {
       field: "price",
       headerName: "Price",
-      width: 160,
+
       type: "number",
       editable: false,
     },
     {
       field: "amount",
       headerName: "Amount",
-      width: 160,
+
       type: "number",
       editable: false,
     },
     {
       field: "actions",
       headerName: "Acitons",
-      minWidht: 40,
-      align: "center",
+      backgroundColor:red,
       renderCell: ({
         row: { brandId, productId, quantity, price, firmId, _id },
       }) => {
@@ -72,6 +67,7 @@ export default function PurchasesTable({ purchases, handleOpen, setInfo }) {
             key={"edit"}
             icon={<EditIcon />}
             label="Edit"
+            sx={btnStyle}
             onClick={() => {
               handleOpen();
               setInfo({ brandId, productId, quantity, price, firmId, _id });
@@ -81,7 +77,8 @@ export default function PurchasesTable({ purchases, handleOpen, setInfo }) {
           key={"remove"}
           icon={<DeleteIcon />}
           label="Remove"
-          onClick={() => deleteStock("purchases", _id)}
+          onClick={() => deleteStock("sales", _id)}
+          sx={btnStyle}
           />
         ];
       },
@@ -89,9 +86,10 @@ export default function PurchasesTable({ purchases, handleOpen, setInfo }) {
   ];
 
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box sx={{ width: "100%", mt:4 }}>
       <DataGrid
-        rows={purchases}
+        rows={sales}
+        sx={{backgroundColor:red}}
         columns={columns}
         initialState={{
           pagination: {

@@ -47,10 +47,10 @@ const useStockRequest = () => {
         } 
     }
 
-    const deleteStock = async(path = "firms", id) => {
+    const deleteStock = async(path, id) => {
         dispatch(fetchStart())
         try{
-            await axiosToken(`/${path}/${id}`)
+            await axiosToken.delete(`/${path}/${id}`)
             toastSuccessNotify("purchases succsesfully is deleted")
             getStock(path)
         }catch(error){
