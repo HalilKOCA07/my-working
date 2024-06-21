@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* TABLE STYLE */
+.MuiDataGrid-toolbarContainer{
+    background-color: #c9c9c9;
+}
+.MuiDataGrid-columnHeader{
+    background-color:#dbdbdb;
+    color: blue;
+}
+.MuiDataGrid-filler{
+    display: none;
+}
+/* TABLE STYLE */

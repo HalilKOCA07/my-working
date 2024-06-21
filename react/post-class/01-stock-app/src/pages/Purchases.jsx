@@ -4,6 +4,7 @@ import { Button, Typography } from "@mui/material";
 import useStockRequest from "../services/useStockRequest";
 import { useSelector } from "react-redux";
 import PurchasesModal from "../components/PurchasesModal";
+import { newAddingBtnStyle, pageHeaderStyle } from "../styles/globalStyles";
 
 const Purchases = () => {
   const { getStock } = useStockRequest();
@@ -33,16 +34,11 @@ const Purchases = () => {
   }, []);
   return (
     <div>
-      <Typography sx={{ fontWeight: "bold", fontSize: 18 }}>
+      <Typography sx={pageHeaderStyle}>
         PURCHASES
       </Typography>
       <Button
-        sx={{
-          backgroundColor: "black",
-          color: "white",
-          m: 3,
-          ":hover": { backgroundColor: "#020265" },
-        }}
+        sx={newAddingBtnStyle}
         onClick={handleOpen}
       >
         New Purchase

@@ -1,6 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from '@mui/icons-material/Delete';
 import useStockRequest from "../services/useStockRequest";
@@ -13,8 +13,11 @@ export default function SalesTable({ sales, handleOpen, setInfo }) {
   const columns = [
     {
       field: "createdAt",
-      headerName: "Date:",
-
+      headerName: "Date",
+      minWidth:90,
+      headerAlign: "center",
+      align: "center",
+      width:200,
       renderCell: ({ row }) => {
         return new Date(row.createdAt).toLocaleDateString("tr-TR");
       },
@@ -22,43 +25,51 @@ export default function SalesTable({ sales, handleOpen, setInfo }) {
     {
       field: "brandId",
       headerName: "Brand",
-
-      editable: true,
+      minWidth:200,
+      headerAlign: "center",
+      align: "center",
       renderCell: ({ row }) => row?.brandId?.name,
 
     },
     {
       field: "productId",
       headerName: "Product",
-
-      editable: true,
+      minWidth:200,
+      headerAlign: "center",
+      align: "center",
       renderCell: ({ row }) => row?.productId?.name,
     },
     {
       field: "quantity",
       headerName: "Quentity",
-
+      minWidth:40,
       type: "number",
-      editable: false,
+      headerAlign: "center",
+      align: "center",
     },
     {
       field: "price",
       headerName: "Price",
-
+      minWidth:40,
       type: "number",
-      editable: false,
+      headerAlign: "center",
+      align: "center",
     },
     {
       field: "amount",
       headerName: "Amount",
-
+      minWidth:40,
       type: "number",
-      editable: false,
+      headerAlign: "center",
+      align: "center",
     },
     {
       field: "actions",
       headerName: "Acitons",
       backgroundColor:red,
+      minWidth:40,
+      headerAlign: "center",
+      align: "center",
       renderCell: ({
         row: { brandId, productId, quantity, price, firmId, _id },
       }) => {
@@ -86,20 +97,14 @@ export default function SalesTable({ sales, handleOpen, setInfo }) {
   ];
 
   return (
-    <Box sx={{ width: "100%", mt:4 }}>
+    <Box sx={{ m:"auto",minWidth:900,maxWidth:1000, mt:4 }}>
       <DataGrid
+        autoHeight
         rows={sales}
-        sx={{backgroundColor:red}}
         columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 10,
-            },
-          },
-        }}
-        pageSizeOptions={[10]}
+        pageSizeOptions={[10,50,75,100]}
         disableRowSelectionOnClick
+        slots={{toolbar:GridToolbar}}
         getRowId={getRowId}
       />
     </Box>
