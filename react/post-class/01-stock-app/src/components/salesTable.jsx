@@ -2,22 +2,22 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import useStockRequest from "../services/useStockRequest";
 import { red } from "@mui/material/colors";
 import { btnStyle } from "../styles/globalStyles";
 
-export default function SalesTable({ sales, handleOpen, setInfo }) {
-  const {deleteStock} = useStockRequest()
+export default function SalesTable({ sales, setInfoSales, open, handleOpen }) {
+  const { deleteStock } = useStockRequest();
   const getRowId = (row) => row._id;
   const columns = [
     {
       field: "createdAt",
       headerName: "Date",
-      minWidth:90,
+      minWidth: 90,
       headerAlign: "center",
       align: "center",
-      width:200,
+      width: 200,
       renderCell: ({ row }) => {
         return new Date(row.createdAt).toLocaleDateString("tr-TR");
       },
@@ -25,16 +25,15 @@ export default function SalesTable({ sales, handleOpen, setInfo }) {
     {
       field: "brandId",
       headerName: "Brand",
-      minWidth:200,
+      minWidth: 200,
       headerAlign: "center",
       align: "center",
       renderCell: ({ row }) => row?.brandId?.name,
-
     },
     {
       field: "productId",
       headerName: "Product",
-      minWidth:200,
+      minWidth: 200,
       headerAlign: "center",
       align: "center",
       renderCell: ({ row }) => row?.productId?.name,
@@ -42,7 +41,7 @@ export default function SalesTable({ sales, handleOpen, setInfo }) {
     {
       field: "quantity",
       headerName: "Quentity",
-      minWidth:40,
+      minWidth: 40,
       type: "number",
       headerAlign: "center",
       align: "center",
@@ -50,7 +49,7 @@ export default function SalesTable({ sales, handleOpen, setInfo }) {
     {
       field: "price",
       headerName: "Price",
-      minWidth:40,
+      minWidth: 40,
       type: "number",
       headerAlign: "center",
       align: "center",
@@ -58,7 +57,7 @@ export default function SalesTable({ sales, handleOpen, setInfo }) {
     {
       field: "amount",
       headerName: "Amount",
-      minWidth:40,
+      minWidth: 40,
       type: "number",
       headerAlign: "center",
       align: "center",
@@ -66,8 +65,8 @@ export default function SalesTable({ sales, handleOpen, setInfo }) {
     {
       field: "actions",
       headerName: "Acitons",
-      backgroundColor:red,
-      minWidth:40,
+      backgroundColor: red,
+      minWidth: 40,
       headerAlign: "center",
       align: "center",
       renderCell: ({
@@ -81,30 +80,30 @@ export default function SalesTable({ sales, handleOpen, setInfo }) {
             sx={btnStyle}
             onClick={() => {
               handleOpen();
-              setInfo({ brandId, productId, quantity, price, firmId, _id });
+              setInfoSales({ brandId, productId, quantity, price, firmId, _id });
             }}
           />,
-          <GridActionsCellItem 
-          key={"remove"}
-          icon={<DeleteIcon />}
-          label="Remove"
-          onClick={() => deleteStock("sales", _id)}
-          sx={btnStyle}
-          />
+          <GridActionsCellItem
+            key={"remove"}
+            icon={<DeleteIcon />}
+            label="Remove"
+            onClick={() => deleteStock("sales", _id)}
+            sx={btnStyle}
+          />,
         ];
       },
     },
   ];
 
   return (
-    <Box sx={{ m:"auto",minWidth:900,maxWidth:1000, mt:4 }}>
+    <Box sx={{ m: "auto", minWidth: 900, maxWidth: 1000, mt: 4 }}>
       <DataGrid
         autoHeight
         rows={sales}
         columns={columns}
-        pageSizeOptions={[10,50,75,100]}
+        pageSizeOptions={[10, 50, 75, 100]}
         disableRowSelectionOnClick
-        slots={{toolbar:GridToolbar}}
+        slots={{ toolbar: GridToolbar }}
         getRowId={getRowId}
       />
     </Box>

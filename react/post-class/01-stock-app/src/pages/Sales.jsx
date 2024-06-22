@@ -4,14 +4,15 @@ import { useSelector } from "react-redux";
 import useStockRequest from "../services/useStockRequest";
 import { Button, Typography } from "@mui/material";
 import { newAddingBtnStyle, pageHeaderStyle } from "../styles/globalStyles";
+import SalesModal from "../components/salesModal";
 
 const Sales = () => {
   const { sales } = useSelector((state) => state.stock);
   const { getStock } = useStockRequest();
 
   const initialState = {
-    brand: "",
-    product: "",
+    brandId: "",
+    productId: "",
     quantity: "",
     price: "",
   };
@@ -37,7 +38,8 @@ const Sales = () => {
       <Button sx={newAddingBtnStyle} onClick={handleOpen}>
         NEW SALES
       </Button>
-      <SalesTable sales={sales} />
+      <SalesTable handleOpen={handleOpen} open={open} sales={sales} setInfoSales={setInfoSales} />
+      <SalesModal setInfoSales={setInfoSales} infoSales={infoSales} handleClose={handleClose} open={open}/>
     </div>
   );
 };

@@ -66,7 +66,7 @@ export default function PurchasesModal({ purchases, open, handleClose, setInfo, 
         <Box sx={style}>
           {/* *************** FIRMS ***************** */}
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Firms</InputLabel>
+            <InputLabel id="firm-select-label">Firms</InputLabel>
             <Select
               labelId="firm-select-label"
               value={info?.firmId?._id || info?.firmId}
@@ -97,9 +97,9 @@ export default function PurchasesModal({ purchases, open, handleClose, setInfo, 
 
           {/* *************** BRANDS ***************** */}
           <FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
-            <InputLabel id="demo-simple-select-label">Brand</InputLabel>
+            <InputLabel id="brand-select-label">Brand</InputLabel>
             <Select
-              labelId="firm-select-label"
+              labelId="brand-select-label"
               value={info?.brandId?._id || info?.brandId}
               name="brandId"
               label="Brand"
@@ -128,12 +128,12 @@ export default function PurchasesModal({ purchases, open, handleClose, setInfo, 
 
           {/* *************** PRODUCTS ***************** */}
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Product</InputLabel>
+            <InputLabel id="product-select-label">Product</InputLabel>
             <Select
-              labelId="firm-select-label"
-              value={info?.productId?._id || info?.productId}
+              labelId="product-select-label"
               name="productId"
               label="Product"
+              value={info?.productId?._id || info?.productId}
               onChange={handleChange}
               required
             >
@@ -194,7 +194,7 @@ export default function PurchasesModal({ purchases, open, handleClose, setInfo, 
               }}
               onClick={handleSubmit}
             >
-              New Add Purchase
+              {info?._id ? "Edit Purchase" : "New Add Purchase"}
             </Button>
           </FormControl>
         </Box>

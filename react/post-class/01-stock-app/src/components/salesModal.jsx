@@ -26,29 +26,29 @@ const style = {
   pb: 3,
 };
 
-export default function SalesModal({ open, handleClose, setInfo, info }) {
+export default function SalesModal({ open, handleClose, setInfoSales, infoSales }) {
   const { getStock, postStock, putStock } = useStockRequest();
   const navigate = useNavigate();
   const { brands, products } = useSelector((state) => state.stock);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setInfo({ ...info, [name]: value });
+    setInfoSales({ ...infoSales, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if(info._id){
-        putStock("sales", info)
+    if(infoSales._id){
+        putStock("sales", infoSales)
     }else{
-       postStock("sales", info)
+       postStock("sales", infoSales)
     }
    
     handleClose()
   };
 
-  console.log(info);
+  console.log(infoSales);
 
   useEffect(() => {
     getStock("brands");
@@ -69,7 +69,7 @@ export default function SalesModal({ open, handleClose, setInfo, info }) {
             <InputLabel id="demo-simple-select-label">Brand</InputLabel>
             <Select
               labelId="firm-select-label"
-              value={info?.brandId?._id || info?.brandId}
+              value={infoSales?.brandId?._id || infoSales?.brandId}
               name="brandId"
               label="Brand"
               onChange={handleChange}
@@ -100,7 +100,7 @@ export default function SalesModal({ open, handleClose, setInfo, info }) {
             <InputLabel id="demo-simple-select-label">Product</InputLabel>
             <Select
               labelId="firm-select-label"
-              value={info?.productId?._id || info?.productId}
+              value={infoSales?.productId?._id || infoSales?.productId}
               name="productId"
               label="Product"
               onChange={handleChange}
@@ -134,7 +134,7 @@ export default function SalesModal({ open, handleClose, setInfo, info }) {
               sx={{ mt: 2 }}
               variant="outlined"
               type="number"
-              value={info?.quantity}
+              value={infoSales?.quantity}
               onChange={handleChange}
               required
             />
@@ -148,7 +148,7 @@ export default function SalesModal({ open, handleClose, setInfo, info }) {
               sx={{ mt: 2 }}
               variant="outlined"
               type="number"
-              value={info?.price}
+              value={infoSales?.price}
               onChange={handleChange}
               required
             />
@@ -163,7 +163,7 @@ export default function SalesModal({ open, handleClose, setInfo, info }) {
               }}
               onClick={handleSubmit}
             >
-              New Add Purchase
+              {infoSales?._id ? "Edis Sales" : "New Add Sales"}
             </Button>
           </FormControl>
         </Box>

@@ -6,10 +6,11 @@
 .MuiDataGrid-toolbarContainer{
     background-color: #c9c9c9;
 }
-.MuiDataGrid-columnHeader{
-    background-color:#dbdbdb;
+.css-yrdy0g-MuiDataGrid-columnHeaderRow{
+    background-color:#dbdbdb !important; 
     color: blue;
 }
+
 .MuiDataGrid-filler{
     display: none;
 }

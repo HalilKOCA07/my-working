@@ -20,7 +20,6 @@ const Purchases = () => {
   const [info, setInfo] = useState(initialState);
   const [open, setOpen] = useState(false);
 
-  console.log(open);
   const handleOpen = () => {
     setOpen(true);
   };
