@@ -21,6 +21,6 @@ export const newAddingBtnStyle = {
 export const cardStyle = {
     display:"flex",
     gap:2,
-    flexWrap:"wrap"
-    
+    flexWrap:"wrap",
+    justifyContent:"center"
 }

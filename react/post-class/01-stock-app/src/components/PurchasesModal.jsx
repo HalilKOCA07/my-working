@@ -26,7 +26,7 @@ const style = {
   pb: 3,
 };
 
-export default function PurchasesModal({ purchases, open, handleClose, setInfo, info }) {
+export default function PurchasesModal({ open, handleClose, setInfo, info }) {
   const { getStock, postStock, putStock } = useStockRequest();
   const navigate = useNavigate();
   const { firms, brands, products } = useSelector((state) => state.stock);

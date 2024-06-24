@@ -8,7 +8,7 @@ import { red } from "@mui/material/colors";
 import { btnStyle } from "../styles/globalStyles";
 
 export default function SalesTable({ sales, setInfoSales, open, handleOpen }) {
-  const { deleteStock } = useStockRequest();
+  const { deleteApi } = useStockRequest();
   const getRowId = (row) => row._id;
   const columns = [
     {
@@ -87,7 +87,7 @@ export default function SalesTable({ sales, setInfoSales, open, handleOpen }) {
             key={"remove"}
             icon={<DeleteIcon />}
             label="Remove"
-            onClick={() => deleteStock("sales", _id)}
+            onClick={() => deleteApi("sales", _id)}
             sx={btnStyle}
           />,
         ];

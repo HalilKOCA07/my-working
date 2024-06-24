@@ -11,8 +11,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { btnStyle } from "../styles/globalStyles";
 import { heIL } from "@mui/material/locale";
 
-const FirmCard = ({ firm, handleOpen, setInfoFirm }) => {
-  const { getStock, deleteApi } = useStockRequest();
+const BrandCard = ({ brand, handleOpen, setInfoBrand }) => {
+  const { deleteApi } = useStockRequest();
 
   return (
     <Card
@@ -25,36 +25,23 @@ const FirmCard = ({ firm, handleOpen, setInfoFirm }) => {
       }}
     >
       <Typography gutterBottom variant="h5" component="div">
-        {firm?.name}
+        {brand?.name}
       </Typography>
-      <CardActionArea sx={{}}>
-        <CardMedia component="img" image={firm?.image} alt="green iguana" />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            <Typography sx={{ fontSize: 15, fontWeight: "bold" }}>
-              Address:
-            </Typography>
-            {firm?.address}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            <Typography sx={{ fontSize: 15, fontWeight: "bold" }}>
-              Phone:
-            </Typography>
-            {firm?.phone}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      <Typography>
+        <CardMedia component="img" image={brand?.image} alt={brand?.name} />
+
+      </Typography>
       <CardActions sx={{ justifyContent: "center", mt: 0 }}>
         <Button
           sx={btnStyle}
           onClick={() => {
             handleOpen();
-            setInfoFirm(firm);
+            setInfoBrand(brand);
           }}
         >
           <EditIcon />
         </Button>
-        <Button sx={btnStyle} onClick={() => deleteApi("firms", firm?._id)}>
+        <Button sx={btnStyle} onClick={() => deleteApi("brands", brand?._id)}>
           <DeleteIcon />
         </Button>
       </CardActions>
@@ -62,4 +49,4 @@ const FirmCard = ({ firm, handleOpen, setInfoFirm }) => {
   );
 };
 
-export default FirmCard;
+export default BrandCard;

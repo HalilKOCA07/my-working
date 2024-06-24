@@ -47,7 +47,7 @@ const useStockRequest = () => {
         } 
     }
 
-    const deleteStock = async(path, id) => {
+    const deleteApi = async(path, id) => {
         dispatch(fetchStart())
         try{
             await axiosToken.delete(`/${path}/${id}`)
@@ -59,7 +59,7 @@ const useStockRequest = () => {
         } 
     }
 
-  return {getStock, deleteStock, postStock, putStock}
+  return {getStock, deleteApi, postStock, putStock}
 }
 
 export default useStockRequest

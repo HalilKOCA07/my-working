@@ -7,7 +7,7 @@ import useStockRequest from "../services/useStockRequest";
 import { btnStyle } from "../styles/globalStyles";
 
 export default function PurchasesTable({ purchases, handleOpen, setInfo }) {
-  const {deleteStock} = useStockRequest()
+  const {deleteApi} = useStockRequest()
   const getRowId = (row) => row._id;
   const columns = [
     {
@@ -99,7 +99,7 @@ export default function PurchasesTable({ purchases, handleOpen, setInfo }) {
           icon={<DeleteIcon />}
           label="Remove"
           sx={btnStyle}
-          onClick={() => deleteStock("purchases", _id)}
+          onClick={() => deleteApi("purchases", _id)}
           />
         ];
       },
