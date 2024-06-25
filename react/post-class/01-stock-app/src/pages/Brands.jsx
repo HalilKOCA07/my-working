@@ -5,22 +5,18 @@ import {
   newAddingBtnStyle,
   pageHeaderStyle,
 } from "../styles/globalStyles";
-import FirmCard from "../components/FirmCard";
 import useStockRequest from "../services/useStockRequest";
 import { useSelector } from "react-redux";
-import FirmModal from "../components/FirmModal";
 import BrandCard from "../components/BrandCard";
 import BrandModal from "../components/BrandModal";
 
 const Brands = () => {
   const { getStock } = useStockRequest();
   const { brands } = useSelector((state) => state.stock);
-console.log(brands)
   const [open, setOpen] = useState(false);
   const initialState = {
     name: "",
     image: "",
-
   };
 
   const [infoBrand, setInfoBrand] = useState(initialState);
@@ -59,8 +55,8 @@ console.log(brands)
       <BrandModal
         open={open}
         handleClose={handleClose}
-        setInfoFirm={setInfoBrand}
-        infoFirm={infoBrand}
+        setInfoBrand={setInfoBrand}
+        infoBrand={infoBrand}
       />
     </div>
   );

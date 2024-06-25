@@ -52,7 +52,7 @@ export default function BrandModal({open, handleClose, setInfoBrand, infoBrand }
 
           <FormControl fullWidth>
             <TextField
-              label="Firm Name"
+              label="Brand Name"
               id="name"
               name="name"
               inputProps={{ min: 0 }}

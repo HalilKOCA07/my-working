@@ -22,8 +22,7 @@ const style = {
 };
 
 export default function FirmModal({open, handleClose, setInfoFirm, infoFirm }) {
-  const { getStock, postStock, putStock } = useStockRequest();
-  const navigate = useNavigate();
+  const { postStock, putStock } = useStockRequest();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
