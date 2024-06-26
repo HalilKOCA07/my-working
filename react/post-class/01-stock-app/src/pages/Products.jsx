@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import ProductsList from "../components/productsList";
 import { newAddingBtnStyle, pageHeaderStyle } from "../styles/globalStyles";
 import { Box, Button, Typography } from "@mui/material";
+import ProductsModal from "../components/ProductsModal";
 
 const Products = () => {
   const { getStock } = useStockRequest();
@@ -19,7 +20,7 @@ const Products = () => {
 
 
 
-  const handleOpen = () => setInfo(true)
+  const handleOpen = () => setOpen(true)
   const handleClose = () => {
     setOpen(false)
     setInfo(initialState)
@@ -35,7 +36,8 @@ const Products = () => {
       <Button sx={newAddingBtnStyle} onClick={handleOpen}>
         New Add Product
       </Button>
-      <ProductsList categories={categories} products={products} handleOpen={handleClose}/>
+      <ProductsList categories={categories} setInfo={setInfo} products={products} handleOpen={handleOpen}/>
+      <ProductsModal setInfo={setInfo} info={info} handleClose={handleClose} open={open}/>
     </Box>
   )
 };

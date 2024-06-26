@@ -7,38 +7,48 @@ import useStockRequest from "../services/useStockRequest";
 import { red } from "@mui/material/colors";
 import { btnStyle } from "../styles/globalStyles";
 
-export default function ProductsList({ products,categories, setInfo, handleOpen }) {
+export default function ProductsList({ products, setInfo, handleOpen }) {
   const { deleteApi } = useStockRequest();
   const getRowId = (row) => row._id;
   const columns = [
     {
       field: "_id",
       headerName: "ID",
-      minWidth: 90,
+      minWidth: 110,
       headerAlign: "center",
       align: "center",
       width: 200
     },
     {
-      field: "brandId",
-      headerName: "Brand",
-      minWidth: 200,
+      field: "categoryId",
+      headerName: "Category",
+      minWidth: 180,
       headerAlign: "center",
       align: "center",
-      renderCell: ({ row }) => row?.brandId?.name,
+      // renderCell: ({ row }) => row?.categoryId?.name,
+      valueGetter: (value) => value?.name
     },
     {
-      field: "productId",
-      headerName: "Product",
-      minWidth: 200,
+      field: "brandId",
+      headerName: "Brand",
+      minWidth: 180,
       headerAlign: "center",
       align: "center",
-      renderCell: ({ row }) => row?.productId?.name,
+      // renderCell: ({ row }) => row?.brandId?.name,    
+      valueGetter: (value) => value?.name
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      qidth:170,
+      headerAlign: "center",
+      align: "center",
     },
     {
       field: "quantity",
-      headerName: "Quentity",
-      minWidth: 40,
+      headerName: "Stock",
+      minWidth: 50,
+      width:120,
       type: "number",
       headerAlign: "center",
       align: "center",
@@ -47,11 +57,12 @@ export default function ProductsList({ products,categories, setInfo, handleOpen 
       field: "actions",
       headerName: "Acitons",
       backgroundColor: red,
-      minWidth: 40,
+      minWidth: 50,
+      width:120,
       headerAlign: "center",
       align: "center",
       renderCell: ({
-        row: { brandId, productId, quantity, price, firmId, _id },
+        row: { brandId, name, categoryId, _id },
       }) => {
         return [
           <GridActionsCellItem
@@ -61,7 +72,7 @@ export default function ProductsList({ products,categories, setInfo, handleOpen 
             sx={btnStyle}
             onClick={() => {
               handleOpen();
-              setInfo({ brandId, productId, quantity, price, firmId, _id });
+              setInfo({ brandId, name, categoryId, _id });
             }}
           />,
           <GridActionsCellItem
@@ -77,13 +88,14 @@ export default function ProductsList({ products,categories, setInfo, handleOpen 
   ];
 
   return (
-    <Box sx={{ m: "auto", minWidth: 900, maxWidth: 1000, mt: 4 }}>
+    <Box sx={{ m: "auto", minWidth: 950, maxWidth: 1050, mt: 4 }}>
       <DataGrid
         autoHeight
         rows={products}
         columns={columns}
         pageSizeOptions={[10, 50, 75, 100]}
         disableRowSelectionOnClick
+        checkboxSelection
         slots={{ toolbar: GridToolbar }}
         getRowId={getRowId}
       />
