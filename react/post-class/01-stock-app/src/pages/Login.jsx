@@ -3,17 +3,20 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import LockIcon from "@mui/icons-material/Lock";
-import image from "../assets/result.svg";
+import image from "../assets/loginImage.png";
+import newCar from "../assets/loginNewCar.png";
+import oldCar from "../assets/loginOldCar.png";
+import title from "../assets/loginTitle.png";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { Formik, Form } from "formik";
-import { ObjectSchema, object, string } from "yup";
+import { object, string } from "yup";
 // import { login } from "../services/useApiRequest"
 import useAuthRequest from "../services/useAuthRequest";
-
-
+import "../styles/login.css";
+import { Bold } from "@tremor/react";
 
 const Login = () => {
   const { login } = useAuthRequest();
@@ -46,16 +49,26 @@ const Login = () => {
           p: 2,
         }}
       >
-        <Grid item xs={12} mb={3}>
-          <Typography variant="h3" color="primary" align="center">
-            STOCK APP
-          </Typography>
+        <Grid
+          item
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            px:5
+          }}
+          xs={12}
+          mb={3}
+        >
+          <img src={oldCar} className="headCarImg" width={250} alt="loginOldCar" />
+          <img src={title} className="title" width="100%" alt="" />
+          <img src={newCar} className="headCarImg"  width={250} alt="loginNewCar" />
         </Grid>
 
         <Grid item xs={12} sm={10} md={6}>
           <Avatar
             sx={{
-              backgroundColor: "secondary.light",
+              backgroundColor: "#2AAAB6",
               m: "auto",
               width: 40,
               height: 40,
@@ -67,7 +80,7 @@ const Login = () => {
             variant="h4"
             align="center"
             mb={4}
-            color="secondary.light"
+            color="#3c3b52"
           >
             Login
           </Typography>
@@ -99,6 +112,7 @@ const Login = () => {
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   <TextField
                     label="Email"
+                    sx={{  backgroundColor:"white"}}
                     name="email"
                     id="email"
                     type="email"
@@ -115,6 +129,7 @@ const Login = () => {
                     id="password"
                     type="password"
                     variant="outlined"
+                    sx={{backgroundColor:"white"}}
                     value={values.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -136,12 +151,6 @@ const Login = () => {
           <Box sx={{ textAlign: "center", mt: 2 }}>
             <Link to="/register">Do you have not an account?</Link>
           </Box>
-        </Grid>
-
-        <Grid item xs={10} sm={7} md={6}>
-          <Container>
-            <img src={image} alt="img" />
-          </Container>
         </Grid>
       </Grid>
     </Container>
